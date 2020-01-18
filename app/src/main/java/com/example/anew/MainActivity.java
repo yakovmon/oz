@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ViewFlipper;
 
 import com.github.mikephil.charting.charts.BarLineChartBase;
 import com.github.mikephil.charting.charts.CandleStickChart;
@@ -49,11 +50,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         candleStickChart = findViewById(R.id.candleStickChart);
         lineChart        = findViewById(R.id.lineChart);
-        Button daily     = findViewById(R.id.daily);
-        Button week      = findViewById(R.id.week);
-        Button month     = findViewById(R.id.month);
-        Button line      = findViewById(R.id.line);
-        Button candle    = findViewById(R.id.candle);
+//        Button daily     = findViewById(R.id.daily);
+//        Button week      = findViewById(R.id.week);
+//        Button month     = findViewById(R.id.month);
+//        Button line      = findViewById(R.id.line);
+//        Button candle    = findViewById(R.id.candle);
+
+        String symbol = "GOOG";
+        unpackParams();
 
 
         buildCandleStickChart();
@@ -62,14 +66,16 @@ public class MainActivity extends AppCompatActivity {
         line.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                chnageVisibility(1);
+                ((ViewFlipper) findViewById(R.id.chart_vf)).setDisplayedChild(1);
+//                chnageVisibility(1);
             }
         });
 
         candle.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                chnageVisibility(0);
+                ((ViewFlipper) findViewById(R.id.chart_vf)).setDisplayedChild(0);
+//                chnageVisibility(0);
             }
         });
 
@@ -241,6 +247,10 @@ public class MainActivity extends AppCompatActivity {
         entries.add(new CandleEntry(53f, 300.57f,296.57f,296.57f,297.43f));
         entries.add(new CandleEntry(54f, 300.60f,296.19f,296.24f,300.35f));
         return entries;
+    }
+
+    public void onWeekClick(View view) {
+        showReleventRangeTime(returnGraphActive(), 7);
     }
 }
 
